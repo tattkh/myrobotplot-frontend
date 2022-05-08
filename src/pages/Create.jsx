@@ -1,8 +1,8 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function Create() {
-    const [state, setSState] = useState({
+    const [state, setState] = useState({
         title: '',
         genre: '',
         tone: '',
@@ -10,6 +10,18 @@ function Create() {
         length: 0,
         iterations: 0
     });
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setState(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
+    useEffect(() => {
+        console.log(state);
+    }, [state]);
 
 
     return (
@@ -20,7 +32,9 @@ function Create() {
                     labelId='genre-select-label'
                     id='genre-select'
                     value={state.genre}
+                    onChange={handleChange}
                     label='Genre'
+                    name='genre'
 
                 >
                     <MenuItem value="action">Action</MenuItem>
